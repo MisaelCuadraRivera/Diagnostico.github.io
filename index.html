@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué puedo hacer hoy?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Examen Diagnositico</h1>
+            <p class="subtitle">Usado con Bored API Documentation</p>
+            <p class="author">Estoy aburrido ¿Que hago?</p>
+        </header>
+
+        <main>
+            <section class="random-section">
+                <button id="randomBtn" class="btn btn-primary">
+                     Obtener Actividad Aleatoria
+                </button>
+            </section>
+
+            <section class="filter-section">
+                <h2>Filtrar por Categoría</h2>
+                <div class="category-grid">
+                    <button class="category-btn" data-category="education">Education</button>
+                    <button class="category-btn" data-category="recreational">🎮 Recreational</button>
+                    <button class="category-btn" data-category="social">Social</button>
+                    <button class="category-btn" data-category="charity">Charity</button>
+                    <button class="category-btn" data-category="cooking">🍳 Cooking</button>
+                    <button class="category-btn" data-category="relaxation">Relaxation</button>
+                    <button class="category-btn" data-category="busywork">Busywork</button>
+                </div>
+            </section>
+
+            <section class="results-section">
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Cargando actividad</p>
+                </div>
+
+                <div id="activityCard" class="activity-card hidden">
+                    <div class="activity-header">
+                        <span id="activityType" class="activity-type"></span>
+                        <span id="participants" class="participants"></span>
+                    </div>
+                    <h3 id="activityTitle" class="activity-title"></h3>
+                    <p id="activityDescription" class="activity-description"></p>
+                    <div class="activity-footer">
+                        <span id="activityPrice" class="price"></span>
+                        <span id="activityAccessibility" class="accessibility"></span>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="error-message hidden">
+                    <p>Error</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
