@@ -5,6 +5,9 @@ const randomBtn = document.getElementById('randomBtn');
 const categoryBtns = document.querySelectorAll('.category-btn');
 const loading = document.getElementById('loading');
 const activityCard = document.getElementById('activityCard');
+const activitiesContainer = document.getElementById('activitiesContainer');
+const activitiesList = document.getElementById('activitiesList');
+const categoryTitle = document.getElementById('categoryTitle');
 const errorMessage = document.getElementById('errorMessage');
 
 const activityType = document.getElementById('activityType');
@@ -68,14 +71,78 @@ async function getActivityByCategory(category) {
             throw new Error(data.error);
         }
         
-        // La API devuelve un array, tomamos el primer elemento
-        const activity = Array.isArray(data) ? data[0] : data;
-        displayActivity(activity);
+        // La API devuelve un array con todas las actividades de esa categoría
+        const activities = Array.isArray(data) ? data : [data];
+        displayActivities(activities, category);
         
     } catch (error) {
-        console.error('Error al obtener actividad por categoría:', error);
+        console.error('Error al obtener actividades por categoría:', error);
         showError();
     }
+}
+
+function displayActivities(activities, category) {
+    hideLoading();
+    
+    const typeTranslations = {
+        'education': 'Education',
+        'recreational': 'Recreational',
+        'social': 'Social',
+        'charity': 'Charity',
+        'cooking': 'Cooking',
+        'relaxation': 'Relaxation',
+        'busywork': 'Busywork'
+    };
+    
+    // Mostrar título de la categoría
+    categoryTitle.textContent = `Actividades de ${typeTranslations[category] || category}`;
+    
+    // Limpiar lista anterior
+    activitiesList.innerHTML = '';
+    
+    // Crear tarjetas para cada actividad
+    activities.forEach((activity, index) => {
+        const activityCard = createActivityCard(activity, index);
+        activitiesList.appendChild(activityCard);
+    });
+    
+    // Mostrar el contenedor de actividades
+    activitiesContainer.classList.remove('hidden');
+    activityCard.classList.add('hidden');
+}
+
+function createActivityCard(activity, index) {
+    const card = document.createElement('div');
+    card.className = 'activity-card';
+    card.style.animationDelay = `${index * 0.1}s`;
+    
+    const typeTranslations = {
+        'education': 'Education',
+        'recreational': 'Recreational',
+        'social': 'Social',
+        'charity': 'Charity',
+        'cooking': 'Cooking',
+        'relaxation': 'Relaxation',
+        'busywork': 'Busywork'
+    };
+    
+    const priceText = formatPrice(activity.price);
+    const accessibilityText = formatAccessibility(activity.accessibility);
+    
+    card.innerHTML = `
+        <div class="activity-header">
+            <span class="activity-type">${typeTranslations[activity.type] || activity.type}</span>
+            <span class="participants">${activity.participants} participante${activity.participants !== 1 ? 's' : ''}</span>
+        </div>
+        <h3 class="activity-title">${activity.activity}</h3>
+        <p class="activity-description">${activity.activity}</p>
+        <div class="activity-footer">
+            <span class="price">${priceText}</span>
+            <span class="accessibility">${accessibilityText}</span>
+        </div>
+    `;
+    
+    return card;
 }
 
 function displayActivity(activity) {
@@ -103,6 +170,7 @@ function displayActivity(activity) {
     activityAccessibility.textContent = accessibilityText;
     
     activityCard.classList.remove('hidden');
+    activitiesContainer.classList.add('hidden');
 }
 
 function formatPrice(price) {
@@ -152,6 +220,7 @@ function clearCategorySelection() {
 function showLoading() {
     loading.classList.remove('hidden');
     activityCard.classList.add('hidden');
+    activitiesContainer.classList.add('hidden');
     errorMessage.classList.add('hidden');
 }
 
@@ -163,6 +232,7 @@ function showError() {
     hideLoading();
     errorMessage.classList.remove('hidden');
     activityCard.classList.add('hidden');
+    activitiesContainer.classList.add('hidden');
 }
 
 

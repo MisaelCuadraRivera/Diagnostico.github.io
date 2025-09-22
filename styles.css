@@ -116,6 +116,26 @@ header h1 {
     color: #ff6b6b;
 }
 
+/* Contenedor de actividades múltiples */
+.activities-container {
+    margin-bottom: 20px;
+}
+
+.category-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 /* Tarjeta de actividad */
 .activity-card {
     background: white;
@@ -299,5 +319,28 @@ footer a:hover {
     
     .activity-description {
         font-size: 1.1rem;
+    }
+    
+    .activities-list {
+        gap: 25px;
+    }
+    
+    .category-title {
+        font-size: 2rem;
+    }
+}
+
+/* Estilos específicos para la lista de actividades */
+.activities-list .activity-card {
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .activities-list {
+        gap: 20px;
+    }
+    
+    .category-title {
+        font-size: 1.8rem;
     }
 }
